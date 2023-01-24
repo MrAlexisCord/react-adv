@@ -1,8 +1,13 @@
 import styles from '../styles/styles.module.css';
 import { useContext } from 'react';
 import { ProductContext } from './ProductCard';
+import { IClassable, IStyleable } from '../interfaces/attribute-interfaces';
 
-export const ProductTitle = ({ title }: { title?: string }) => {
+export interface ProductTitleProps extends IClassable, IStyleable {
+    title?: string;
+}
+
+export const ProductTitle = ({ title, className, style }: ProductTitleProps) => {
 
     const { product } = useContext(ProductContext);
 
@@ -14,5 +19,11 @@ export const ProductTitle = ({ title }: { title?: string }) => {
         titleToShow = product.title;
     }
 
-    return (<span className={styles.productDescription}>{titleToShow}</span>);
+    return (
+        <span
+            className={`${styles.productDescription} ${className ?? ''}`}
+            style={style}
+        >
+            {titleToShow}
+        </span>);
 }
